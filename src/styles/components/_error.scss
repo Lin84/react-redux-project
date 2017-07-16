@@ -1,0 +1,24 @@
+.error {
+    .errorBlock {
+        max-height: 100%;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .form-group {
+        &__container {
+            &::after {
+                background-color: red;
+                width: 100%;
+            }
+        }
+
+        &__label {
+            color: red;
+        }
+    }
+
+    .select__custom_select::after {
+        border-top: 10px solid red;
+    }
+}

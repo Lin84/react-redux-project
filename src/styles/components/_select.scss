@@ -1,0 +1,62 @@
+.select {
+    &__custom {
+        &_select {
+            background: transparent;
+            border: none;
+            width: 100%;
+            font-size: 1.25rem;
+            height: 1.6rem;
+            outline: none;
+
+            &::after {
+                transition: all .3s;
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 10px solid #aaafaf;
+                clear: both;
+                top: 0;
+                right: 1rem;
+                transform: rotate(0);
+            }
+
+            &_focus {
+                &::after {
+                    transform: rotate(180deg);
+                    border-top: 10px solid #239bd6;
+                }
+            }
+        }
+
+        &_select-content {
+            margin-bottom: 0;
+            line-height: 1.6rem;
+        }
+
+        &_option {
+            &:hover {
+                color: #239bd6;
+                border-bottom: 1px solid #239bd6;
+            }
+        }
+
+        &_option-wrapper {
+            background-color: #fff;
+            position: absolute;
+            width: 100%;
+            right: 0;
+            top: 2rem;
+            z-index: 2;
+            padding: 1rem;
+            box-shadow: 1px 1px 5px 1px #888;
+            border-radius: 2px;
+        }
+    }
+
+    &__select {
+        display: none;
+    }
+}

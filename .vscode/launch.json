@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "chrome",
+            "request": "launch",
+            // "name": "Chrome",
+            // "port": 9222,
+            // "url": "http://localhost:5001/#/*",
+            // "sourceMaps": true,
+            // "webRoot": "${workspaceRoot}/.tmp/src/app"
+        }
+    ]
+}

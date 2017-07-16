@@ -3,17 +3,19 @@
 {% set title = "Gulpie" %}
 
 {% block content %}
-    <h1>Pages</h1>
-    <div class="plus-one"></div>
-    <ul>
+    <h1>Card Form:</h1>
+    {#<div class="plus-one"></div>#}
+    {#<ul>
         <li><a href="/styleguide">Styleguide</a></li>
         {% for path in _pages %}
             <li><a href="{{ path }}.html">{{ path }}</a></li>
         {% endfor %}
-    </ul>
+    </ul>#}
 
-    <div id="timer"></div>
-    <div class="plus-one"></div>
+    {#<div id="timer"></div>
+    <div class="plus-one"></div>#}
 
-    {% include 'components/p.nunj' %}
+    <div id="card-form"></div>
+
+    {#{% include 'components/p.nunj' %}#}
 {% endblock %}

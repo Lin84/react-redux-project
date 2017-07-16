@@ -11,13 +11,15 @@ import configureStore from './store/configureStore';
 import cookieLaw from './components/cookie-law';
 import Timer from './components/Timer';
 import PlusOne from './components/plus-one/PlusOne';
+import CardForm from './components/CardForm';
 
 const app = (config) => {
     init(cookieLaw, document.getElementById('cookie-law'));
 
     const store = configureStore(config);
-    render(Timer, document.getElementById('timer'), { from: 100 });
-    renderFactory(PlusOne, document.querySelectorAll('.plus-one'), {}, store);
+    // render(Timer, document.getElementById('timer'), { from: 100 });
+    // renderFactory(PlusOne, document.querySelectorAll('.plus-one'), {}, store);
+    render(CardForm, document.getElementById('card-form'), {}, store);
 };
 
 app(window.config);

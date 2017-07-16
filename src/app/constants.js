@@ -1,0 +1,2 @@
+export const INIT_CARD_FORM = 'INIT_CARD_FORM';
+export const UPDATE_FORM_DATA = 'UPDATE_FORM_DATA';

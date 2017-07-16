@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './root-reducer';
+import rootReducer from '../Reducers/root-reducer';
 
 export default function configureStore(initialState) {
     /* eslint-disable no-underscore-dangle */
