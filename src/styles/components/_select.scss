@@ -1,58 +1,68 @@
 .select {
-    &__custom {
-        &_select {
-            background: transparent;
-            border: none;
-            width: 100%;
-            font-size: 1.25rem;
-            height: 1.6rem;
-            outline: none;
+    &__container {
+        width: 100%;
+        height: 1.6rem;
+        border: none;
+        background: transparent;
+        font-size: 1.25rem;
+        outline: none;
 
-            &::after {
-                transition: all .3s;
-                content: '';
-                position: absolute;
-                width: 0;
-                height: 0;
-                border-left: 10px solid transparent;
-                border-right: 10px solid transparent;
-                border-top: 10px solid #aaafaf;
-                clear: both;
-                top: 0;
-                right: 1rem;
-                transform: rotate(0);
-            }
-
-            &_focus {
-                &::after {
-                    transform: rotate(180deg);
-                    border-top: 10px solid #239bd6;
-                }
-            }
-        }
-
-        &_select-content {
-            margin-bottom: 0;
-            line-height: 1.6rem;
-        }
-
-        &_option {
-            &:hover {
-                color: #239bd6;
-                border-bottom: 1px solid #239bd6;
-            }
-        }
-
-        &_option-wrapper {
-            background-color: #fff;
+        &::after {
             position: absolute;
-            width: 100%;
-            right: 0;
-            top: 2rem;
-            z-index: 2;
-            padding: 1rem;
-            box-shadow: 1px 1px 5px 1px #888;
-            border-radius: 2px;
+            top: 0;
+            right: 1rem;
+            width: 0;
+            height: 0;
+            clear: both;
+            transition: all .3s;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 7px solid #aaafaf;
+            content: '';
+            transform: rotate(0);
+        }
+
+        &_focus {
+            &::after {
+                border-top: 7px solid #239bd6;
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__content {
+        margin-bottom: 0;
+        line-height: 1.6rem;
+    }
+
+    &__option-wrapper {
+        position: absolute;
+        right: 0;
+        top: 2.5rem;
+        z-index: 2;
+        padding: 1rem;
+        width: 100%;
+        transition: all .3s;
+        transform: translateY(-10%);
+        background-color: #fff;
+        box-shadow: 0 0 5px #888;
+        border-radius: 2px;
+        opacity: 0;
+        visibility: hidden;
+
+        &_display {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &__option {
+        cursor: pointer;
+
+        &:hover {
+            color: #239bd6;
+            border-bottom: 1px solid #239bd6;
         }
     }
 

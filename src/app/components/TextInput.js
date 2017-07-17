@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import ErrorBlock from './errorBlock';
 
-class Input extends Component {
+export default class TextInput extends Component {
     constructor() {
         super();
 
         this.state = {
-            isFocused: false,
-            isFilled: false
+            isFocused: false
         };
 
         this.handleOnFocus = this.handleOnFocus.bind(this);
@@ -41,13 +41,26 @@ class Input extends Component {
         const { isFocused } = this.state;
         const isFilled = value.trim().length !== 0;
 
+        const formGroupClass = classNames({
+            'form-group': true,
+            error: !isValid
+        });
+
+        const formGroupContainerClass = classNames({
+            'form-group__container': true,
+            'form-group__container_focus': isFocused || isFilled
+        });
+
+        const labelClass = classNames({
+            'form-group__label': true,
+            'form-group__label_focus': isFocused || isFilled
+        });
+
         return (
-            <div className={`form-group ${!isValid ? 'error' : ''}`}>
-                <div className={`form-group__container ${isFocused || isFilled ? 'form-group__container_focus' : ''}`}>
-                    <label
-                        htmlFor={fieldName}
-                        className={`form-group__label ${isFocused || isFilled ? 'form-group__label_focus' : ''}`}
-                    >
+            <div className={formGroupClass}>
+                <div className={formGroupContainerClass}>
+
+                    <label htmlFor={fieldName} className="label">
                         { label }
                     </label>
 
@@ -60,6 +73,7 @@ class Input extends Component {
                         placeholder={placeholder}
                         value={value}
                     />
+
                 </div>
                 <ErrorBlock errorMsg="this field is required" />
             </div>
@@ -67,12 +81,10 @@ class Input extends Component {
     }
 }
 
-export default Input;
-
-Input.defaultProps = {
+TextInput.defaultProps = {
     value: '',
     placeholder: ''
 };
 
-Input.propTypes = {
+TextInput.propTypes = {
 };

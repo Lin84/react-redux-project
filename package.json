@@ -85,6 +85,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.9.1",
     "bootstrap": "^4.0.0-alpha.6",
+    "classnames": "^2.2.5",
     "fg-loadcss": "^1.2.0",
     "merge-stream": "^1.0.0",
     "prop-types": "^15.5.10",

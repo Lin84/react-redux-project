@@ -1,10 +1,10 @@
 .text-input {
     &__input {
-        line-height: 1rem;
-        background: transparent;
-        border: none;
         width: 100%;
+        line-height: 1rem;
         font-size: 1.25rem;
+        border: none;
+        background: transparent;
 
         &:focus {
             outline: none;

@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import arrays from '../utilities/arrays';
 
-class Button extends Component {
-    // constructor(){
-    //     super();
-    // }
+const Button = (props) => {
+    const { placeholder, customClassName } = props;
+    const btnClass = arrays.join('btn', customClassName);
 
-    render() {
-        const { placeholder } = this.props;
-        return (
-            <button>{placeholder}</button>
-        );
-    }
-
-}
+    return (
+        <button
+            type="button"
+            className={`ma1 ${btnClass}`}
+        >
+            {placeholder}
+        </button>
+    );
+};
 
 export default Button;
 

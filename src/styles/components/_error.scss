@@ -8,8 +8,8 @@
     .form-group {
         &__container {
             &::after {
-                background-color: red;
                 width: 100%;
+                background-color: red;
             }
         }
 

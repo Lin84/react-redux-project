@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import ErrorBlock from '../components/errorBlock';
 import toggledComponent from './hoc/ToggledComponent';
 
-class Select extends Component {
+class SimpleSelect extends Component {
     constructor() {
         super();
-
-        this.state = {
-            isFilled: false
-        };
 
         this.handleClickOption = this.handleClickOption.bind(this);
         this.handleClickOption = this.handleClickOption.bind(this);
@@ -29,7 +26,14 @@ class Select extends Component {
             options = content.map((value) => {
                 return (
                     /*eslint-disable*/
-                    <div role="button" className="select__custom_option" key={value} data-value={value} onClick={(e) => this.handleClickOption(e)}>{value}</div>
+                    <div
+                        className="select__option"
+                        key={value}
+                        data-value={value}
+                        onClick={(e) => this.handleClickOption(e)}
+                    >
+                        {value}
+                    </div>
                     /*eslint-enable*/
                 );
             });
@@ -44,7 +48,14 @@ class Select extends Component {
         if (content || fieldName) {
             options = content.map((value) => {
                 return (
-                    <option className="select__custom_option" key={value} data-value={value} onClick={(e) => this.handleClickOption(e)}>{value}</option>
+                    <option
+                        className="select__option"
+                        key={value}
+                        data-value={value}
+                        onClick={(e) => this.handleClickOption(e)}
+                    >
+                        {value}
+                    </option>
                 );
             });
         }
@@ -66,30 +77,47 @@ class Select extends Component {
 
         const isFilled = value.trim().length !== 0;
 
+        const formGroupClass = classNames({
+            'form-group': true,
+            error: !isValid
+        });
+
+        const formGroupContainerClass = classNames({
+            'form-group__container': true,
+            'form-group__container_focus': isOpen || isFilled
+        });
+
+        const selectContainerClass = classNames({
+            select__container: true,
+            select__container_focus: isOpen
+        });
+
+        const optionWrapperClass = classNames({
+            'select__option-wrapper': true,
+            'select__option-wrapper_display': isOpen
+        });
+
         return (
-            <div className={`form-group ${!isValid ? 'error' : ''}`}>
-                <div className={`form-group__container ${isOpen || isFilled ? 'form-group__container_focus' : ''}`}>
-                    <label
-                        htmlFor={fieldName}
-                        className={`form-group__label ${isOpen || isFilled ? 'form-group__label_focus' : ''}`}
-                    >
+            <div className={formGroupClass}>
+                <div className={formGroupContainerClass} tabIndex={0} onBlur={closeComponent} >
+
+                    <label htmlFor={fieldName} className="label">
                         { label }
                     </label>
+
                     {/*eslint-disable*/}
-                    <div
-                        className={`select__custom_select ${isOpen || isFilled ? 'select__custom_select_focus' : ''}`}
-                        tabIndex={0}
-                        onClick={handleToggle}
-                    >
+                    <div className={selectContainerClass} onClick={handleToggle}>
                     {/*eslint-enable*/}
-                        <p className="select__custom_select-content">{value}</p>
-                        <div className={`select__custom_option-wrapper ${isOpen ? '' : 'u-hidden'}`}>
+                        <p className="select__content">{value}</p>
+                        <div className={optionWrapperClass}>
                             {this.renderCustomOption()}
                         </div>
                     </div>
+
                     <select name={fieldName} id={fieldName} className="select__select">
                         {this.renderOption()}
                     </select>
+
                 </div>
                 <ErrorBlock errorMsg="this field is required" />
             </div>
@@ -98,9 +126,14 @@ class Select extends Component {
 
 }
 
-export default toggledComponent(Select);
+export default toggledComponent(SimpleSelect);
 
-Select.defaultProps = {
+SimpleSelect.defaultProps = {
     value: '',
-    placeholder: ''
+    placeholder: '',
+    isOpen: false
+};
+
+SimpleSelect.propTypes = {
+    isOpen: PropTypes.bool.isRequired
 };

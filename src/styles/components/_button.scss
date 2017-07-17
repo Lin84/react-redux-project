@@ -1,0 +1,43 @@
+.btn {
+    margin-right: .5rem;
+    margin-left: .5rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    box-shadow: 0 0 5px #888;
+    cursor: pointer;
+
+    &:active {
+        position: relative;
+        top: 1px;
+        box-shadow: inset 0 0 3px 3px rgba(0, 0, 0, .25);
+        outline: none !important;
+    }
+
+    &__clear {
+        background-color: #fff;
+
+        &:hover {
+            background-color: #239bd6;
+            color: #fff;
+        }
+
+        &:focus {
+            border: 1px solid #239bd6;
+        }
+    }
+
+    &__submit {
+        background-color: #239bd6;
+        color: #fff;
+
+        &:hover {
+            border: 1px solid #239bd6;
+            background-color: #fff;
+            color: #239bd6;
+        }
+
+        &:focus {
+            border: 1px solid #fff;
+        }
+    }
+}
