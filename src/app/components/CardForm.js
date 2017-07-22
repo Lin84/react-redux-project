@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import TextInput from './TextInput';
 import SimpleSelect from './SimpleSelect';
 import Button from './Button';
-import { initCardForm } from '../AC/cardForm';
-import { updateFormData } from '../AC/data';
+
+// import { initCardForm, resetFormData } from '../AC/cardForm';
+import { updateFormData, resetFormData } from '../AC/data';
+
 /*eslint-disable*/
 class CardForm extends Component {
 /*eslint-enable*/
@@ -14,7 +17,7 @@ class CardForm extends Component {
     // }
 
     render() {
-        const { data, updateFormData } = this.props;
+        const { data, updateFormData, resetFormData } = this.props;
 
         return (
             <form id="cardForm">
@@ -28,6 +31,7 @@ class CardForm extends Component {
                                     isValid
                                     label="Card Number"
                                     value={data.cardNumber}
+                                    type="number"
                                 />
                             </div>
 
@@ -38,46 +42,53 @@ class CardForm extends Component {
                                     isValid
                                     label="Card Name"
                                     value={data.cardName}
+                                    type="number"
                                 />
                             </div>
 
                             <div className="row">
                                 <SimpleSelect
                                     content={['2017', '2018', '2019', '2020']}
-                                    fieldName="year"
+                                    fieldName="cardYear"
                                     handleChange={updateFormData}
                                     isValid
                                     label="Year"
                                     placeholder="Please fill in"
-                                    value={data.year}
+                                    value={data.cardYear}
                                 />
                             </div>
 
                             <div className="row">
                                 <SimpleSelect
-                                    content={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']}
-                                    fieldName="month"
+                                    content={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']}
+                                    fieldName="cardMonth"
                                     handleChange={updateFormData}
                                     isValid
                                     label="Month"
                                     placeholder="Please fill in"
-                                    value={data.month}
+                                    value={data.cardMonth}
                                 />
                             </div>
 
                             <div className="row">
                                 <TextInput
-                                    fieldName="cvv"
+                                    fieldName="cardCvv"
                                     label="CVV"
-                                    value={data.cvv}
+                                    value={data.cardCvv}
                                     handleChange={updateFormData}
                                     isValid
+                                    type="number"
                                 />
                             </div>
 
                             <div className="row">
                                 <div className="w-100 tc">
-                                    <Button fieldName="clearButton" placeholder="CLEAR" customClassName={'btn__clear'} />
+                                    <Button
+                                        fieldName="clearButton"
+                                        placeholder="CLEAR"
+                                        customClassName={'btn__clear'}
+                                        handleClick={resetFormData}
+                                    />
                                     <Button fieldName="submitButton" placeholder="SUBMIT" customClassName={'btn__submit'} />
                                 </div>
                             </div>
@@ -101,7 +112,8 @@ export default connect(state => {
     };
 }, {
     // initCardForm,
-    updateFormData
+    updateFormData,
+    resetFormData
 })(CardForm);
 
 CardForm.propTypes = {

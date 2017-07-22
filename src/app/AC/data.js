@@ -1,4 +1,4 @@
-import { UPDATE_FORM_DATA } from '../constants';
+import { UPDATE_FORM_DATA, RESET_FORM_DATA } from '../constants';
 
 export const updateFormData = ({ name, value }) => {
     return {
@@ -7,5 +7,11 @@ export const updateFormData = ({ name, value }) => {
             name,
             value
         }
+    };
+};
+
+export const resetFormData = () => {
+    return {
+        type: RESET_FORM_DATA
     };
 };
