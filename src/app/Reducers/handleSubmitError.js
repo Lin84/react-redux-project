@@ -1,6 +1,6 @@
 import { HANDLE_SUBMIT_ERROR } from '../constants';
 
-export default (state = { error: null }, action) => {
+export default (state = { submitFailed: null }, action) => {
     const { type } = action;
 
     switch (type) {

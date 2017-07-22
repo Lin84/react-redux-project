@@ -19,6 +19,7 @@ export const resetFormData = () => {
 
 export const submitFormData = ({ data, endPoint }) => {
     return (dispatch) => {
+
         dispatch({
             type: SUBMIT_FORM_DATA
         });
@@ -37,5 +38,6 @@ export const submitFormData = ({ data, endPoint }) => {
                 type: HANDLE_SUBMIT_ERROR
             });
         });
+
     };
 };
