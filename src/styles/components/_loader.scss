@@ -1,0 +1,75 @@
+// Loading spinner
+
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    margin-top: -15px;
+    margin-left: -15px;
+    display: block;
+    height: 30px;
+    width: 30px;
+    background-color: #fff;
+    box-sizing: border-box;
+    clear: both;
+
+    &__overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 999999;
+        height: 100%;
+        width: 100%;
+        background: #D3D3D3;
+        background: rgba(211, 211, 211, 0.9);
+        display: none;
+    }
+
+    &__container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25px;
+        margin-left: -25px;
+        padding: 9px;
+        width: 50px;
+        height: 50px;
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 5px #888;
+    }
+
+    &__circle {
+        z-index: 1;
+        border: 4px rgba(35, 155, 214, 1) solid;;
+        border-bottom: 4px rgba(255, 255, 255, 0) solid;
+        border-radius: 50%;
+        animation: loaderCircRot 2s infinite linear;
+    }
+}
+
+.loader__overlay.js-loader-active {
+    display: block;
+    position: fixed;
+}
+
+@-webkit-keyframes loaderCircRot {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}
+
+@keyframes loaderCircRot {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
