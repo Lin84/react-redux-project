@@ -8,17 +8,23 @@ import SimpleSelect from './SimpleSelect';
 import Button from './Button';
 
 // import { initCardForm, resetFormData } from '../AC/cardForm';
-import { updateFormData, resetFormData } from '../AC/data';
+import { updateFormData, resetFormData, submitFormData } from '../AC/data';
 
-/*eslint-disable*/
 class CardForm extends Component {
-/*eslint-enable*/
-    // componentDidMount() {
-    //     this.props.initCardForm();
-    // }
+    constructor() {
+        super();
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit() {
+        const { data, submitFormData } = this.props;
+
+        submitFormData({ data, endPoint: 'hovno/velke' });
+    }
 
     render() {
-        const { data, updateFormData, resetFormData, firstCarcNumber } = this.props;
+        const { data, updateFormData, resetFormData, firstCarcNumber, submitFormData } = this.props;
 
         const visaClass = classNames({
             mr1: true,
@@ -105,6 +111,7 @@ class CardForm extends Component {
                                         fieldName="submitButton"
                                         placeholder="SUBMIT"
                                         customClassName={'btn__submit'}
+                                        handleClick={this.handleSubmit}
                                     />
                                 </div>
                             </div>
@@ -130,7 +137,8 @@ class CardForm extends Component {
 }
 
 export default connect(state => {
-    const { data } = state;
+    const { data, handleSubmitError } = state;
+    const { submitFailed } = handleSubmitError;
     const { cardNumber } = data;
 
     let firstCarcNumber;
@@ -140,12 +148,14 @@ export default connect(state => {
 
     return {
         data,
-        firstCarcNumber
+        firstCarcNumber,
+        submitFailed
     };
 }, {
     // initCardForm,
     updateFormData,
-    resetFormData
+    resetFormData,
+    submitFormData
 })(CardForm);
 
 CardForm.propTypes = {
