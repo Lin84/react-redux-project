@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TextInput from './TextInput';
 import SimpleSelect from './SimpleSelect';
@@ -17,7 +18,18 @@ class CardForm extends Component {
     // }
 
     render() {
-        const { data, updateFormData, resetFormData } = this.props;
+        const { data, updateFormData, resetFormData, firstCarcNumber } = this.props;
+
+        const visaClass = classNames({
+            mr1: true,
+            mt1: true,
+            'o-50': firstCarcNumber !== 4
+        });
+
+        const masterClass = classNames({
+            mr1: true,
+            'o-50': firstCarcNumber !== 5
+        });
 
         return (
             <form id="cardForm">
@@ -89,14 +101,26 @@ class CardForm extends Component {
                                         customClassName={'btn__clear'}
                                         handleClick={resetFormData}
                                     />
-                                    <Button fieldName="submitButton" placeholder="SUBMIT" customClassName={'btn__submit'} />
+                                    <Button
+                                        fieldName="submitButton"
+                                        placeholder="SUBMIT"
+                                        customClassName={'btn__submit'}
+                                    />
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-4">
-                            <img className="mr1 mt1"src="../../gfx/svg/icons/visa.svg" alt="visa card icon" />
-                            <img className="mt1" src="../../gfx/svg/icons/mc.svg" alt="master card icon" />
+                            <img
+                                className={visaClass}
+                                src="../../gfx/svg/icons/visa.svg"
+                                alt="visa card icon"
+                            />
+                            <img
+                                className={masterClass}
+                                src="../../gfx/svg/icons/mc.svg"
+                                alt="master card icon"
+                            />
                         </div>
                     </div>
                 </div>
@@ -107,8 +131,16 @@ class CardForm extends Component {
 
 export default connect(state => {
     const { data } = state;
+    const { cardNumber } = data;
+
+    let firstCarcNumber;
+    if (cardNumber) {
+        firstCarcNumber = +cardNumber.slice(0, 1);
+    }
+
     return {
-        data
+        data,
+        firstCarcNumber
     };
 }, {
     // initCardForm,
