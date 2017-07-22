@@ -5,7 +5,7 @@ import data from './data';
 
 const rootReducer = combineReducers({
     // counter,
-    cardForm,
+    // cardForm,
     data
 });
 

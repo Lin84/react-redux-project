@@ -1,6 +1,14 @@
-import { UPDATE_FORM_DATA } from '../constants';
+import { UPDATE_FORM_DATA, RESET_FORM_DATA } from '../constants';
 
-export default (state = {}, action) => {
+const defaultState = {
+    cardNumber: '',
+    cardName: '',
+    cardYear: '',
+    cardMonth: '',
+    cardCvv: ''
+};
+
+export default (state = defaultState, action) => {
     const { type, payload } = action;
 
     switch (type) {
@@ -10,6 +18,13 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 [name]: value
+            };
+        }
+
+        case RESET_FORM_DATA: {
+            return {
+                ...state,
+                ...defaultState
             };
         }
 

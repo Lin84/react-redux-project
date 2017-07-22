@@ -1,2 +1,3 @@
-export const INIT_CARD_FORM = 'INIT_CARD_FORM';
+export const INIT_CARD_FORM_DATA = 'INIT_CARD_FORM_DATA';
 export const UPDATE_FORM_DATA = 'UPDATE_FORM_DATA';
+export const RESET_FORM_DATA = 'RESET_FORM_DATA';

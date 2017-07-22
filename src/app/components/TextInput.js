@@ -35,7 +35,8 @@ export default class TextInput extends Component {
             label,
             placeholder,
             value,
-            isValid
+            isValid,
+            type
         } = this.props;
 
         const { isFocused } = this.state;
@@ -72,6 +73,7 @@ export default class TextInput extends Component {
                         onFocus={this.handleOnFocus}
                         placeholder={placeholder}
                         value={value}
+                        type={type}
                     />
 
                 </div>
