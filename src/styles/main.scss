@@ -5,6 +5,7 @@
 
 body {
     font-family: 'Roboto', $font-family-base;
+    background-color: #fff;
 
     &.wf-active {
         font-family: $font-family-base;

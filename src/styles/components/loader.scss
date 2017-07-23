@@ -23,8 +23,8 @@
         z-index: 999999;
         height: 100%;
         width: 100%;
-        background: #D3D3D3;
-        background: rgba(211, 211, 211, 0.9);
+        background: #d3d3d3;
+        background: rgba(211, 211, 211, .9);
         display: none;
     }
 
@@ -44,7 +44,7 @@
 
     &__circle {
         z-index: 1;
-        border: 4px rgba(35, 155, 214, 1) solid;;
+        border: 4px rgba(35, 155, 214, 1) solid;
         border-bottom: 4px rgba(255, 255, 255, 0) solid;
         border-radius: 50%;
         animation: loaderCircRot 2s infinite linear;
@@ -60,6 +60,7 @@
     from {
         -webkit-transform: rotate(0deg);
     }
+
     to {
         -webkit-transform: rotate(359deg);
     }
@@ -69,6 +70,7 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(359deg);
     }
