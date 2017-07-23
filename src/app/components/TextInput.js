@@ -36,6 +36,8 @@ export default class TextInput extends Component {
             placeholder,
             value,
             isValid,
+            validationResult,
+            displayValidationResult,
             type
         } = this.props;
 
@@ -44,7 +46,7 @@ export default class TextInput extends Component {
 
         const formGroupClass = classNames({
             'form-group': true,
-            error: !isValid
+            error: displayValidationResult && validationResult
         });
 
         const formGroupContainerClass = classNames({
@@ -77,7 +79,7 @@ export default class TextInput extends Component {
                     />
 
                 </div>
-                <ErrorBlock errorMsg="this field is required" />
+                <ErrorBlock errorMsg={validationResult || null} />
             </div>
         );
     }

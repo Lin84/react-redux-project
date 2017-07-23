@@ -72,14 +72,16 @@ class SimpleSelect extends Component {
             isOpen,
             handleToggle,
             openComponent,
-            closeComponent
+            closeComponent,
+            validationResult,
+            displayValidationResult
         } = this.props;
 
         const isFilled = value.trim().length !== 0;
 
         const formGroupClass = classNames({
             'form-group': true,
-            error: !isValid
+            error: displayValidationResult
         });
 
         const formGroupContainerClass = classNames({
@@ -119,7 +121,7 @@ class SimpleSelect extends Component {
                     </select>
 
                 </div>
-                <ErrorBlock errorMsg="this field is required" />
+                <ErrorBlock errorMsg={validationResult || null} />
             </div>
         );
     }

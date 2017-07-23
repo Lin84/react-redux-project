@@ -1,0 +1,23 @@
+.snack-notification {
+    display: flex;
+    color: #fff;
+    background-color: #000;
+    // padding-right: 2rem;
+    // padding-left: 2rem;
+    padding: 1rem 2rem;
+    justify-content: center;
+    align-items: center;
+
+    &__button {
+        color: purple;
+        background-color: #000;
+        box-shadow: none;
+        margin: 0;
+        font-size: 1.3rem;
+    }
+
+    &__text {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+}

@@ -1,0 +1,12 @@
+.card-icons {
+    &__container {
+        position: absolute;
+        top: 0;
+        right: -120px;
+
+        @media (max-width: 767px) {
+            top: 40px;
+            right: 10px;
+        }
+    }
+}

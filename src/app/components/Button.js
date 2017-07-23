@@ -9,7 +9,7 @@ const Button = (props) => {
     return (
         <button
             type="button"
-            className={`ma1 ${btnClass}`}
+            className={btnClass}
             onClick={handleClick}
         >
             {placeholder}

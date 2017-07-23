@@ -6,25 +6,64 @@ import classNames from 'classnames';
 import TextInput from './TextInput';
 import SimpleSelect from './SimpleSelect';
 import Button from './Button';
+import SnackNotification from './SnackNotification';
 
-// import { initCardForm, resetFormData } from '../AC/cardForm';
-import { updateFormData, resetFormData, submitFormData } from '../AC/data';
+import { updateFormData, resetFormData, submitFormData, validateFormData } from '../AC/data';
 
 class CardForm extends Component {
     constructor() {
         super();
 
+        this.state = {
+            displayValidationResult: false
+        }
+
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.renderTryAgain = this.renderTryAgain.bind(this);
+    }
+
+    componentDidMount() {
+        const {
+            data,
+            validateFormData
+        } = this.props;
+
+        validateFormData(data);
     }
 
     handleSubmit() {
-        const { data, submitFormData } = this.props;
+        const {
+            data,
+            submitFormData,
+            validateFormData,
+            validationResult
+        } = this.props;
 
-        submitFormData({ data, endPoint: 'hovno/velke' });
+        validateFormData(data);
+        this.setState({
+            displayValidationResult: true
+        });
+        console.log(validationResult);
+        if (Object.keys(validationResult).length === 0) {
+            submitFormData({ data, endPoint: 'http://localhost:5001/api/mock-api.json' });
+        }
+    }
+
+    renderTryAgain() {
+        return (
+            <SnackNotification
+                handleClick={this.handleSubmit}
+                text={'Oops! Something wrong...'}
+                label={'TRY AGAIN'}
+                customClassName={'mt3'}
+            />
+        );
     }
 
     render() {
-        const { data, updateFormData, resetFormData, firstCarcNumber, submitFormData } = this.props;
+        const { data, updateFormData, resetFormData, firstCarcNumber, submitFormData, displayTryAgain, validationResult } = this.props;
+
+        const { displayValidationResult } = this.state
 
         const visaClass = classNames({
             mr1: true,
@@ -33,7 +72,7 @@ class CardForm extends Component {
         });
 
         const masterClass = classNames({
-            mr1: true,
+            mt1: true,
             'o-50': firstCarcNumber !== 5
         });
 
@@ -41,15 +80,18 @@ class CardForm extends Component {
             <form id="cardForm">
                 <div className="container">
                     <div className="row">
-                        <div className="col-8 col-md-6 col-xl-5">
+
+                        <div className="col-xs-12 col-md-8 col-lg-6">
+
                             <div className="row">
                                 <TextInput
                                     fieldName="cardNumber"
                                     handleChange={updateFormData}
-                                    isValid
                                     label="Card Number"
                                     value={data.cardNumber}
                                     type="number"
+                                    validationResult={validationResult.cardNumber}
+                                    displayValidationResult = {displayValidationResult}
                                 />
                             </div>
 
@@ -57,10 +99,11 @@ class CardForm extends Component {
                                 <TextInput
                                     fieldName="cardName"
                                     handleChange={updateFormData}
-                                    isValid
                                     label="Card Name"
                                     value={data.cardName}
-                                    type="number"
+                                    type="text"
+                                    validationResult={validationResult.cardName}
+                                    displayValidationResult = {displayValidationResult}
                                 />
                             </div>
 
@@ -69,10 +112,11 @@ class CardForm extends Component {
                                     content={['2017', '2018', '2019', '2020']}
                                     fieldName="cardYear"
                                     handleChange={updateFormData}
-                                    isValid
                                     label="Year"
                                     placeholder="Please fill in"
                                     value={data.cardYear}
+                                    validationResult={validationResult.cardYear}
+                                    displayValidationResult = {displayValidationResult}
                                 />
                             </div>
 
@@ -81,10 +125,11 @@ class CardForm extends Component {
                                     content={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']}
                                     fieldName="cardMonth"
                                     handleChange={updateFormData}
-                                    isValid
                                     label="Month"
                                     placeholder="Please fill in"
                                     value={data.cardMonth}
+                                    validationResult={validationResult.cardMonth}
+                                    displayValidationResult = {displayValidationResult}
                                 />
                             </div>
 
@@ -94,8 +139,9 @@ class CardForm extends Component {
                                     label="CVV"
                                     value={data.cardCvv}
                                     handleChange={updateFormData}
-                                    isValid
                                     type="number"
+                                    validationResult={validationResult.cardCvv}
+                                    displayValidationResult = {displayValidationResult}
                                 />
                             </div>
 
@@ -104,31 +150,39 @@ class CardForm extends Component {
                                     <Button
                                         fieldName="clearButton"
                                         placeholder="CLEAR"
-                                        customClassName={'btn__clear'}
+                                        customClassName={'ma1 btn__clear'}
                                         handleClick={resetFormData}
                                     />
                                     <Button
                                         fieldName="submitButton"
                                         placeholder="SUBMIT"
-                                        customClassName={'btn__submit'}
+                                        customClassName={'ma1 btn__submit'}
                                         handleClick={this.handleSubmit}
                                     />
                                 </div>
                             </div>
+
+                            <div className="row">
+                                <div className="w-100">
+                                    { displayTryAgain ? this.renderTryAgain() : null }
+                                </div>
+                            </div>
+
+                            <div className="card-icons__container">
+                                <img
+                                    className={visaClass}
+                                    src="../../gfx/svg/icons/visa.svg"
+                                    alt="visa card icon"
+                                />
+                                <img
+                                    className={masterClass}
+                                    src="../../gfx/svg/icons/mc.svg"
+                                    alt="master card icon"
+                                />
+                            </div>
+
                         </div>
 
-                        <div className="col-4">
-                            <img
-                                className={visaClass}
-                                src="../../gfx/svg/icons/visa.svg"
-                                alt="visa card icon"
-                            />
-                            <img
-                                className={masterClass}
-                                src="../../gfx/svg/icons/mc.svg"
-                                alt="master card icon"
-                            />
-                        </div>
                     </div>
                 </div>
             </form>
@@ -137,26 +191,41 @@ class CardForm extends Component {
 }
 
 export default connect(state => {
-    const { data, handleSubmitError } = state;
+    const { data, handleSubmitError, handleSubmitSuccess, validation } = state;
     const { submitFailed } = handleSubmitError;
+    const { submitSucceeded } = handleSubmitSuccess;
     const { cardNumber } = data;
 
     let firstCarcNumber;
+    let displayTryAgain = false;
+
     if (cardNumber) {
         firstCarcNumber = +cardNumber.slice(0, 1);
+    }
+
+    if (submitSucceeded) {
+        window.location = 'https://www.actum.cz/';
+    }
+
+    if (submitFailed) {
+        displayTryAgain = true;
     }
 
     return {
         data,
         firstCarcNumber,
-        submitFailed
+        displayTryAgain,
+        validationResult: validation
     };
 }, {
-    // initCardForm,
+    validateFormData,
     updateFormData,
     resetFormData,
     submitFormData
 })(CardForm);
+
+CardForm.defaultProps = {
+};
 
 CardForm.propTypes = {
 };

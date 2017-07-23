@@ -1,5 +1,16 @@
 import axios from 'axios';
-import { UPDATE_FORM_DATA, RESET_FORM_DATA, SUBMIT_FORM_DATA, HANDLE_SUBMIT_SUCESS, HANDLE_SUBMIT_ERROR } from '../constants';
+
+import { maxLength, ifFilled } from '../utilities/validationRules';
+import { createLoadingCircle, showLoadingCircle, removeLoadingCircle } from '../utilities/loadingCircle';
+
+import {
+    UPDATE_FORM_DATA,
+    RESET_FORM_DATA,
+    SUBMIT_FORM_DATA,
+    HANDLE_SUBMIT_SUCCESS,
+    HANDLE_SUBMIT_ERROR,
+    VALIDATE_FORM_DATA
+} from '../constants';
 
 export const updateFormData = ({ name, value }) => {
     return {
@@ -24,20 +35,56 @@ export const submitFormData = ({ data, endPoint }) => {
             type: SUBMIT_FORM_DATA
         });
 
-        axios(endPoint, {
-            method: 'POST',
-            data: JSON.stringify(data)
-        })
-        .then(response => {
-            dispatch({
-                type: HANDLE_SUBMIT_SUCESS
+        createLoadingCircle();
+        showLoadingCircle();
+
+        setTimeout(() => {
+            // use GET METHOD to mock SUCCESS POST or POST to mock POST FAILED:
+            axios(endPoint, {
+                method: 'POST',
+                data: JSON.stringify(data)
+            })
+            .then(response => {
+                dispatch({
+                    type: HANDLE_SUBMIT_SUCCESS
+                });
+                removeLoadingCircle();
+            })
+            .catch(error => {
+                dispatch({
+                    type: HANDLE_SUBMIT_ERROR
+                });
+                removeLoadingCircle();
             });
-        })
-        .catch(error => {
-            dispatch({
-                type: HANDLE_SUBMIT_ERROR
-            });
+        }, 300);
+    };
+};
+
+export const validateFormData = (data) => {
+    return (dispatch) => {
+        const copy = { ...data };
+        const fieldKeys = Object.keys(copy);
+        const validationResult = {};
+
+        fieldKeys.map(key => {
+            if (ifFilled(copy[key])) {
+                return validationResult[key] = ifFilled(copy[key]);
+            }
+
+            if (maxLength({ text: copy[key], length: 4 })) {
+                return validationResult[key] = maxLength({ text: copy[key], length: 4 });
+            }
+
+            validationResult[key] = '';
+
+            return validationResult;
         });
 
+        dispatch({
+            type: VALIDATE_FORM_DATA,
+            payload: {
+                validationResult
+            }
+        });
     };
 };

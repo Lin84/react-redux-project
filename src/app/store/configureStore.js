@@ -4,8 +4,8 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 const enhancer = applyMiddleware(
-    thunk,
-    logger
+    // logger,
+    thunk
 );
 
 export default function configureStore(initialState) {
