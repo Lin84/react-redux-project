@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { maxLength, ifFilled } from '../utilities/validationRules';
+import { maxLength, ifFilled, ifCorrectPattern } from '../utilities/validationRules';
 import { createLoadingCircle, showLoadingCircle, removeLoadingCircle } from '../utilities/loadingCircle';
 
 import {
@@ -68,16 +68,23 @@ export const validateFormData = ({ data, validationRules }) => {
         let allowSubmit = false;
 
         fieldKeys.map(key => {
-            if (ifFilled(data[key]) && validationRules[key].required) {
+            if (ifFilled({ text: data[key] }) && validationRules[key].required) {
                 return validationResult[key] = {
-                    message: validationResult[key] = ifFilled(data[key]),
+                    message: validationResult[key] = ifFilled({ text: data[key], validationMsg: 'Please fill in' }),
                     valid: false
                 };
             }
 
-            if (maxLength({ text: data[key], length: 4 }) && validationRules[key].maxLength) {
+            if (maxLength({ text: data[key], length: validationRules[key].maxLength }) && validationRules[key].maxLength) {
                 return validationResult[key] = {
-                    message: maxLength({ text: data[key], length: 4 }),
+                    message: maxLength({ text: data[key], length: validationRules[key].maxLength, validationMsg: `Filled in value should not be longer then ${validationRules[key].maxLength}` }),
+                    valid: false
+                };
+            }
+
+            if (ifCorrectPattern({ text: data[key], pattern: validationRules[key].pattern }) && validationRules[key].pattern) {
+                return validationResult[key] = {
+                    message: ifCorrectPattern({ text: data[key], pattern: validationRules[key].pattern, validationMsg: validationRules[key].patternMsg }),
                     valid: false
                 };
             }

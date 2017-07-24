@@ -2,7 +2,7 @@ import { VALIDATE_FORM_DATA, RESET_FORM_DATA } from '../constants';
 
 const defaultState = {
     validationResult: {},
-    allowSubmit: false
+    allowSubmit: null
 };
 
 export default (state = defaultState, action) => {
