@@ -46,7 +46,7 @@ export default class TextInput extends Component {
 
         const formGroupClass = classNames({
             'form-group': true,
-            error: displayValidationResult && validationResult
+            error: displayValidationResult && !validationResult.valid
         });
 
         const formGroupContainerClass = classNames({
@@ -79,7 +79,7 @@ export default class TextInput extends Component {
                     />
 
                 </div>
-                <ErrorBlock errorMsg={validationResult || null} />
+                <ErrorBlock errorMsg={validationResult ? validationResult.message : null} />
             </div>
         );
     }

@@ -81,7 +81,7 @@ class SimpleSelect extends Component {
 
         const formGroupClass = classNames({
             'form-group': true,
-            error: displayValidationResult
+            error: displayValidationResult && !validationResult.valid
         });
 
         const formGroupContainerClass = classNames({
@@ -121,7 +121,7 @@ class SimpleSelect extends Component {
                     </select>
 
                 </div>
-                <ErrorBlock errorMsg={validationResult || null} />
+                <ErrorBlock errorMsg={validationResult ? validationResult.message : null} />
             </div>
         );
     }

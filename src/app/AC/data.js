@@ -60,31 +60,48 @@ export const submitFormData = ({ data, endPoint }) => {
     };
 };
 
-export const validateFormData = (data) => {
+export const validateFormData = ({ data, validationRules }) => {
     return (dispatch) => {
-        const copy = { ...data };
-        const fieldKeys = Object.keys(copy);
+        const fieldKeys = Object.keys(data);
         const validationResult = {};
+        let validFields = 0;
+        let allowSubmit = false;
 
         fieldKeys.map(key => {
-            if (ifFilled(copy[key])) {
-                return validationResult[key] = ifFilled(copy[key]);
+            if (ifFilled(data[key]) && validationRules[key].required) {
+                return validationResult[key] = {
+                    message: validationResult[key] = ifFilled(data[key]),
+                    valid: false
+                };
             }
 
-            if (maxLength({ text: copy[key], length: 4 })) {
-                return validationResult[key] = maxLength({ text: copy[key], length: 4 });
+            if (maxLength({ text: data[key], length: 4 }) && validationRules[key].maxLength) {
+                return validationResult[key] = {
+                    message: maxLength({ text: data[key], length: 4 }),
+                    valid: false
+                };
             }
 
-            validationResult[key] = '';
+            validationResult[key] = {
+                message: '',
+                valid: true
+            };
 
+            validFields += 1;
             return validationResult;
         });
+
+        if (validFields === fieldKeys.length) {
+            allowSubmit = true;
+        }
 
         dispatch({
             type: VALIDATE_FORM_DATA,
             payload: {
-                validationResult
+                validationResult,
+                allowSubmit
             }
         });
+
     };
 };

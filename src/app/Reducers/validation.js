@@ -1,13 +1,27 @@
-import { VALIDATE_FORM_DATA } from '../constants';
-export default (state = {}, action) => {
+import { VALIDATE_FORM_DATA, RESET_FORM_DATA } from '../constants';
+
+const defaultState = {
+    validationResult: {},
+    allowSubmit: false
+};
+
+export default (state = defaultState, action) => {
     const { type, payload } = action;
 
     switch (type) {
         case VALIDATE_FORM_DATA: {
-            const { validationResult } = payload;
+            const { validationResult, allowSubmit } = payload;
             return {
                 ...state,
-                ...validationResult
+                ...validationResult,
+                allowSubmit
+            };
+        }
+
+        case RESET_FORM_DATA: {
+            return {
+                ...state,
+                ...defaultState
             };
         }
 

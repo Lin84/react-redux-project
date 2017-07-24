@@ -16,37 +16,51 @@ class CardForm extends Component {
 
         this.state = {
             displayValidationResult: false
-        }
+        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderTryAgain = this.renderTryAgain.bind(this);
+
+        this.validationRules = {
+            cardNumber: {
+                required: true
+            },
+            cardName: {
+                required: true
+            },
+            cardYear: {
+                required: true,
+                maxLength: 4
+            },
+            cardMonth: {
+                required: true,
+                maxLength: 2
+            },
+            cardCvv: {
+                required: true,
+                maxLength: 3
+            }
+        };
     }
 
-    componentDidMount() {
-        const {
-            data,
-            validateFormData
-        } = this.props;
-
-        validateFormData(data);
+    componentWillReceiveProps(nextProps) {
+        const { data, submitFormData } = this.props;
+        if (nextProps.validationResult.allowSubmit) {
+            submitFormData({ data, endPoint: 'http://localhost:5001/api/mock-api.json' });
+        }
     }
 
     handleSubmit() {
         const {
             data,
-            submitFormData,
-            validateFormData,
-            validationResult
+            validateFormData
         } = this.props;
 
-        validateFormData(data);
+        validateFormData({ data, validationRules: this.validationRules });
+
         this.setState({
             displayValidationResult: true
         });
-        console.log(validationResult);
-        if (Object.keys(validationResult).length === 0) {
-            submitFormData({ data, endPoint: 'http://localhost:5001/api/mock-api.json' });
-        }
     }
 
     renderTryAgain() {
@@ -63,7 +77,7 @@ class CardForm extends Component {
     render() {
         const { data, updateFormData, resetFormData, firstCarcNumber, submitFormData, displayTryAgain, validationResult } = this.props;
 
-        const { displayValidationResult } = this.state
+        const { displayValidationResult } = this.state;
 
         const visaClass = classNames({
             mr1: true,
@@ -91,7 +105,7 @@ class CardForm extends Component {
                                     value={data.cardNumber}
                                     type="number"
                                     validationResult={validationResult.cardNumber}
-                                    displayValidationResult = {displayValidationResult}
+                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -103,7 +117,7 @@ class CardForm extends Component {
                                     value={data.cardName}
                                     type="text"
                                     validationResult={validationResult.cardName}
-                                    displayValidationResult = {displayValidationResult}
+                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -116,7 +130,7 @@ class CardForm extends Component {
                                     placeholder="Please fill in"
                                     value={data.cardYear}
                                     validationResult={validationResult.cardYear}
-                                    displayValidationResult = {displayValidationResult}
+                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -129,7 +143,7 @@ class CardForm extends Component {
                                     placeholder="Please fill in"
                                     value={data.cardMonth}
                                     validationResult={validationResult.cardMonth}
-                                    displayValidationResult = {displayValidationResult}
+                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -141,7 +155,7 @@ class CardForm extends Component {
                                     handleChange={updateFormData}
                                     type="number"
                                     validationResult={validationResult.cardCvv}
-                                    displayValidationResult = {displayValidationResult}
+                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
