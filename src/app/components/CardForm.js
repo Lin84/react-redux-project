@@ -233,7 +233,6 @@ export default connect(state => {
     }
 
     if (submitFailed) {
-        console.log(state);
         displayTryAgain = true;
     }
 

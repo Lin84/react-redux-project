@@ -1,4 +1,4 @@
-import { HANDLE_SUBMIT_ERROR } from '../constants';
+import { HANDLE_SUBMIT_ERROR, RESET_FORM_DATA } from '../constants';
 
 export default (state = { submitFailed: null }, action) => {
     const { type } = action;
@@ -8,6 +8,13 @@ export default (state = { submitFailed: null }, action) => {
             return {
                 ...state,
                 submitFailed: true
+            };
+        }
+
+        case RESET_FORM_DATA: {
+            return {
+                ...state,
+                submitFailed: false
             };
         }
 
