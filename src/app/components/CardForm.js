@@ -48,7 +48,7 @@ class CardForm extends Component {
     componentWillReceiveProps(nextProps) {
         const { cardForm, submitFormData } = this.props;
         if (nextProps.allowSubmit) {
-            submitFormData({ data: cardForm, endPoint: 'http://localhost:5003/mockDatabase' });
+            submitFormData({ data: cardForm, endPoint: 'http://localhost:5003/cardFormDatabase' });
         }
     }
 
@@ -73,7 +73,15 @@ class CardForm extends Component {
     }
 
     render() {
-        const { cardForm, updateFormData, resetFormData, firstCarcNumber, submitFormData, displayTryAgain, validationResult } = this.props;
+        const {
+            cardForm,
+            updateFormData,
+            resetFormData,
+            firstCarcNumber,
+            submitFormData,
+            displayTryAgain,
+            validationResult
+        } = this.props;
 
         // highlight visa icon if card number start with 4
         const visaClass = classNames({
@@ -100,9 +108,9 @@ class CardForm extends Component {
                                     fieldName="cardNumber"
                                     handleChange={updateFormData}
                                     label="Card Number"
-                                    value={cardForm.cardNumber}
                                     type="text"
                                     validationResult={validationResult.cardNumber}
+                                    value={cardForm.cardNumber}
                                 />
                             </div>
 
@@ -111,9 +119,9 @@ class CardForm extends Component {
                                     fieldName="cardName"
                                     handleChange={updateFormData}
                                     label="Card Name"
-                                    value={cardForm.cardName}
                                     type="text"
                                     validationResult={validationResult.cardName}
+                                    value={cardForm.cardName}
                                 />
                             </div>
 
@@ -124,8 +132,8 @@ class CardForm extends Component {
                                     handleChange={updateFormData}
                                     label="Year"
                                     placeholder="Please fill in"
-                                    value={cardForm.cardYear}
                                     validationResult={validationResult.cardYear}
+                                    value={cardForm.cardYear}
                                 />
                             </div>
 
@@ -136,35 +144,35 @@ class CardForm extends Component {
                                     handleChange={updateFormData}
                                     label="Month"
                                     placeholder="Please fill in"
-                                    value={cardForm.cardMonth}
                                     validationResult={validationResult.cardMonth}
+                                    value={cardForm.cardMonth}
                                 />
                             </div>
 
                             <div className="row">
                                 <TextInput
                                     fieldName="cardCvv"
-                                    label="CVV"
-                                    value={cardForm.cardCvv}
                                     handleChange={updateFormData}
+                                    label="CVV"
                                     type="text"
                                     validationResult={validationResult.cardCvv}
+                                    value={cardForm.cardCvv}
                                 />
                             </div>
 
                             <div className="row">
                                 <div className="w-100 tc">
                                     <Button
-                                        fieldName="clearButton"
-                                        placeholder="CLEAR"
                                         customClassName={'ma1 btn__clear'}
+                                        fieldName="clearButton"
                                         handleClick={resetFormData}
+                                        placeholder="CLEAR"
                                     />
                                     <Button
-                                        fieldName="submitButton"
-                                        placeholder="SUBMIT"
                                         customClassName={'ma1 btn__submit'}
+                                        fieldName="submitButton"
                                         handleClick={this.handleSubmit}
+                                        placeholder="SUBMIT"
                                     />
                                 </div>
                             </div>
@@ -226,17 +234,17 @@ export default connect(state => {
     }
 
     return {
+        allowSubmit,
         cardForm,
-        firstCarcNumber,
         displayTryAgain,
-        validationResult,
-        allowSubmit
+        firstCarcNumber,
+        validationResult
     };
 }, {
-    validateFormData,
-    updateFormData,
     resetFormData,
-    submitFormData
+    submitFormData,
+    updateFormData,
+    validateFormData
 })(CardForm);
 
 CardForm.defaultProps = {

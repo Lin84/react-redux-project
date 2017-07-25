@@ -1,6 +1,6 @@
 module.exports = () => {
-    const mockDatabase = {
+    const cardFormDatabase = {
 
     };
-    return { mockDatabase };
+    return { cardFormDatabase };
 };
