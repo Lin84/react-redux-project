@@ -56,7 +56,7 @@ export const submitFormData = ({ data, endPoint }) => {
                 });
                 removeLoadingCircle();
             });
-        }, 300);
+        }, 3000);
     };
 };
 

@@ -22,10 +22,7 @@ export default (state = defaultState, action) => {
         }
 
         case RESET_FORM_DATA: {
-            return {
-                ...state,
-                ...defaultState
-            };
+            return defaultState;
         }
 
         default: {

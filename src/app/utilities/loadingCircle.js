@@ -20,4 +20,8 @@ function showLoadingCircle() {
     }
 }
 
-export { createLoadingCircle, removeLoadingCircle, showLoadingCircle };
+export {
+    createLoadingCircle,
+    removeLoadingCircle,
+    showLoadingCircle
+};

@@ -48,7 +48,7 @@ class CardForm extends Component {
     componentWillReceiveProps(nextProps) {
         const { cardForm, submitFormData } = this.props;
         if (nextProps.allowSubmit) {
-            submitFormData({ data: cardForm, endPoint: 'http://localhost:5001/api/mock-api.json' });
+            submitFormData({ data: cardForm, endPoint: 'http://localhost:5003/mockDatabase' });
         }
     }
 
@@ -75,12 +75,14 @@ class CardForm extends Component {
     render() {
         const { cardForm, updateFormData, resetFormData, firstCarcNumber, submitFormData, displayTryAgain, validationResult } = this.props;
 
+        // highlight visa icon if card number start with 4
         const visaClass = classNames({
             mr1: true,
             mt1: true,
             'o-50': firstCarcNumber !== 4
         });
 
+         // highlight visa icon if master number start with 5
         const masterClass = classNames({
             mt1: true,
             'o-50': firstCarcNumber !== 5
@@ -222,7 +224,7 @@ export default connect(state => {
     if (submitFailed) {
         displayTryAgain = true;
     }
-    console.log(validationResult);
+
     return {
         cardForm,
         firstCarcNumber,
