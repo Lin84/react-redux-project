@@ -71,17 +71,15 @@ class SimpleSelect extends Component {
             isValid,
             isOpen,
             handleToggle,
-            openComponent,
             closeComponent,
-            validationResult,
-            displayValidationResult
+            validationResult
         } = this.props;
 
         const isFilled = value.trim().length !== 0;
 
         const formGroupClass = classNames({
             'form-group': true,
-            error: displayValidationResult && !validationResult.valid
+            error: validationResult ? !validationResult.valid : false
         });
 
         const formGroupContainerClass = classNames({
@@ -133,7 +131,8 @@ export default toggledComponent(SimpleSelect);
 SimpleSelect.defaultProps = {
     value: '',
     placeholder: '',
-    isOpen: false
+    isOpen: false,
+    label: ''
 };
 
 SimpleSelect.propTypes = {

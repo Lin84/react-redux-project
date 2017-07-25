@@ -14,10 +14,6 @@ class CardForm extends Component {
     constructor() {
         super();
 
-        this.state = {
-            displayValidationResult: false
-        };
-
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderTryAgain = this.renderTryAgain.bind(this);
 
@@ -51,7 +47,7 @@ class CardForm extends Component {
 
     componentWillReceiveProps(nextProps) {
         const { cardForm, submitFormData } = this.props;
-        if (nextProps.validationResult.allowSubmit) {
+        if (nextProps.allowSubmit) {
             submitFormData({ data: cardForm, endPoint: 'http://localhost:5001/api/mock-api.json' });
         }
     }
@@ -63,10 +59,6 @@ class CardForm extends Component {
         } = this.props;
 
         validateFormData({ data: cardForm, validationRules: this.validationRules });
-
-        this.setState({
-            displayValidationResult: true
-        });
     }
 
     renderTryAgain() {
@@ -82,8 +74,6 @@ class CardForm extends Component {
 
     render() {
         const { cardForm, updateFormData, resetFormData, firstCarcNumber, submitFormData, displayTryAgain, validationResult } = this.props;
-
-        const { displayValidationResult } = this.state;
 
         const visaClass = classNames({
             mr1: true,
@@ -111,7 +101,6 @@ class CardForm extends Component {
                                     value={cardForm.cardNumber}
                                     type="text"
                                     validationResult={validationResult.cardNumber}
-                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -123,7 +112,6 @@ class CardForm extends Component {
                                     value={cardForm.cardName}
                                     type="text"
                                     validationResult={validationResult.cardName}
-                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -136,7 +124,6 @@ class CardForm extends Component {
                                     placeholder="Please fill in"
                                     value={cardForm.cardYear}
                                     validationResult={validationResult.cardYear}
-                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -149,7 +136,6 @@ class CardForm extends Component {
                                     placeholder="Please fill in"
                                     value={cardForm.cardMonth}
                                     validationResult={validationResult.cardMonth}
-                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -161,7 +147,6 @@ class CardForm extends Component {
                                     handleChange={updateFormData}
                                     type="text"
                                     validationResult={validationResult.cardCvv}
-                                    displayValidationResult={displayValidationResult}
                                 />
                             </div>
 
@@ -220,10 +205,12 @@ export default connect(state => {
     const { submitFailed } = handleSubmitError;
     const { submitSucceeded } = handleSubmitSuccess;
     const { cardNumber } = cardForm;
+    const { validationResult, allowSubmit } = validation;
 
     let firstCarcNumber;
     let displayTryAgain = false;
 
+    // take first number, if number is 4 = Visa card, 5 = master card:
     if (cardNumber) {
         firstCarcNumber = +cardNumber.slice(0, 1);
     }
@@ -235,12 +222,13 @@ export default connect(state => {
     if (submitFailed) {
         displayTryAgain = true;
     }
-
+    console.log(validationResult);
     return {
         cardForm,
         firstCarcNumber,
         displayTryAgain,
-        validationResult: validation
+        validationResult,
+        allowSubmit
     };
 }, {
     validateFormData,

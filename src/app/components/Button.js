@@ -20,4 +20,6 @@ const Button = (props) => {
 export default Button;
 
 Button.propTypes = {
+    placeholder: PropTypes.string.isRequired,
+    handleClick: PropTypes.func.isRequired
 };

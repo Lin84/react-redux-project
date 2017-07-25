@@ -9,5 +9,6 @@ const ErrorBlock = (props) => {
 
 export default ErrorBlock;
 
-ErrorBlock.propTypes = {
+ErrorBlock.defaultProps = {
+    errorMsg: ''
 };

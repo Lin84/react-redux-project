@@ -13,7 +13,9 @@ export default (state = defaultState, action) => {
             const { validationResult, allowSubmit } = payload;
             return {
                 ...state,
-                ...validationResult,
+                validationResult: {
+                    ...validationResult
+                },
                 allowSubmit
             };
         }

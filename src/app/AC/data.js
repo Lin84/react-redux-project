@@ -62,12 +62,12 @@ export const submitFormData = ({ data, endPoint }) => {
 
 export const validateFormData = ({ data, validationRules }) => {
     return (dispatch) => {
-        const fieldKeys = Object.keys(data);
+        const fieldsKey = Object.keys(data);
         const validationResult = {};
         let validFields = 0;
         let allowSubmit = false;
 
-        fieldKeys.map(key => {
+        fieldsKey.map(key => {
             if (ifFilled({ text: data[key] }) && validationRules[key].required) {
                 return validationResult[key] = {
                     message: validationResult[key] = ifFilled({ text: data[key], validationMsg: 'Please fill in' }),
@@ -95,10 +95,11 @@ export const validateFormData = ({ data, validationRules }) => {
             };
 
             validFields += 1;
+
             return validationResult;
         });
 
-        if (validFields === fieldKeys.length) {
+        if (validFields === fieldsKey.length) {
             allowSubmit = true;
         }
 

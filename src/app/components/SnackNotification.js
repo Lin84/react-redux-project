@@ -13,7 +13,7 @@ const SnackNotification = (props) => {
             <p className="snack-notification__text">{props.text}</p>
             <Button
                 handleClick={props.handleClick}
-                placeholder={'TRY AGAIN'}
+                placeholder={props.label}
                 customClassName={'snack-notification__button ma0'}
             />
         </div>
@@ -22,5 +22,11 @@ const SnackNotification = (props) => {
 
 export default SnackNotification;
 
+SnackNotification.defaultProps = {
+    text: ''
+};
+
 SnackNotification.propTypes = {
+    handleClick: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired
 };

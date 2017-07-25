@@ -29,15 +29,12 @@ export default class TextInput extends Component {
 
     render() {
         const {
-            errorMessage,
             fieldName,
             handleChange,
             label,
             placeholder,
             value,
-            isValid,
             validationResult,
-            displayValidationResult,
             type
         } = this.props;
 
@@ -46,7 +43,7 @@ export default class TextInput extends Component {
 
         const formGroupClass = classNames({
             'form-group': true,
-            error: displayValidationResult && !validationResult.valid
+            error: validationResult ? !validationResult.valid : false
         });
 
         const formGroupContainerClass = classNames({
@@ -87,8 +84,11 @@ export default class TextInput extends Component {
 
 TextInput.defaultProps = {
     value: '',
-    placeholder: ''
+    placeholder: '',
+    type: 'text'
 };
 
 TextInput.propTypes = {
+    handleChange: PropTypes.func.isRequired,
+    fieldName: PropTypes.string.isRequired
 };
