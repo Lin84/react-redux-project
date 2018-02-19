@@ -11,8 +11,6 @@ import configureStore from './store/configureStore';
 import CardForm from './components/CardForm';
 
 const app = (config) => {
-
-
     const store = configureStore(config);
     render(CardForm, document.getElementById('card-form'), {}, store);
 };
